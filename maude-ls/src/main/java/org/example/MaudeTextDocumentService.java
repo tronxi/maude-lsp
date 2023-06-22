@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.eclipse.lsp4j.CompletionItem;
@@ -29,25 +28,25 @@ public class MaudeTextDocumentService implements TextDocumentService {
   @Override
   public void didOpen(DidOpenTextDocumentParams didOpenTextDocumentParams) {
     this.clientLogger.logMessage("Operation '" + "text/didOpen" +
-        "' {fileUri: '" + didOpenTextDocumentParams.getTextDocument().getUri() + "'} opened");
+        "' {fileUri: '" + didOpenTextDocumentParams.getTextDocument().getUri() + "'} opened - OK");
   }
 
   @Override
   public void didChange(DidChangeTextDocumentParams didChangeTextDocumentParams) {
     this.clientLogger.logMessage("Operation '" + "text/didChange" +
-        "' {fileUri: '" + didChangeTextDocumentParams.getTextDocument().getUri() + "'} Changed");
+        "' {fileUri: '" + didChangeTextDocumentParams.getTextDocument().getUri() + "'} Changed - OK");
   }
 
   @Override
   public void didClose(DidCloseTextDocumentParams didCloseTextDocumentParams) {
     this.clientLogger.logMessage("Operation '" + "text/didClose" +
-        "' {fileUri: '" + didCloseTextDocumentParams.getTextDocument().getUri() + "'} Closed");
+        "' {fileUri: '" + didCloseTextDocumentParams.getTextDocument().getUri() + "'} Closed - OK");
   }
 
   @Override
   public void didSave(DidSaveTextDocumentParams didSaveTextDocumentParams) {
     this.clientLogger.logMessage("Operation '" + "text/didSave" +
-        "' {fileUri: '" + didSaveTextDocumentParams.getTextDocument().getUri() + "'} Saved");
+        "' {fileUri: '" + didSaveTextDocumentParams.getTextDocument().getUri() + "'} Saved - OK");
   }
 
   @Override
@@ -60,7 +59,7 @@ public class MaudeTextDocumentService implements TextDocumentService {
       completionItem.setInsertText("Test");
       completionItem.setDetail("Snippet");
       completionItem.setKind(CompletionItemKind.Snippet);
-      return Either.forLeft(Arrays.asList(completionItem));
+      return Either.forLeft(List.of(completionItem));
     });
   }
 }
