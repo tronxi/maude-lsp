@@ -13,6 +13,7 @@ public enum TokenType {
   VAR("var"),
   COLON(":"),
   DOT("\\."),
+  LOAD ("load"),
   IDENTIFIER("[a-zA-Z_][a-zA-Z0-9_]*"),
   ATTRIBUTE("\\[(.*?)\\]"),
   EOF(""),

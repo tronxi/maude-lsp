@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.eclipse.lsp4j.ClientCapabilities;
 import org.eclipse.lsp4j.InitializeParams;
@@ -12,20 +10,15 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.eclipse.lsp4j.services.TextDocumentService;
 import org.eclipse.lsp4j.services.WorkspaceService;
 import org.eclipse.lsp4j.CompletionOptions;
-import org.eclipse.lsp4j.CompletionRegistrationOptions;
-import org.eclipse.lsp4j.InitializedParams;
-import org.eclipse.lsp4j.Registration;
-import org.eclipse.lsp4j.RegistrationParams;
 import org.eclipse.lsp4j.ServerCapabilities;
-import org.eclipse.lsp4j.TextDocumentClientCapabilities;
 import org.eclipse.lsp4j.TextDocumentSyncKind;
 
 public class MaudeLanguageServer implements LanguageServer, LanguageClientAware {
 
-  private TextDocumentService textDocumentService;
-  private WorkspaceService workspaceService;
+  private final TextDocumentService textDocumentService;
+  private final WorkspaceService workspaceService;
   private ClientCapabilities clientCapabilities;
-  LanguageClient languageClient;
+  private LanguageClient languageClient;
   private int shutdown = 1;
 
   public MaudeLanguageServer() {
@@ -35,29 +28,20 @@ public class MaudeLanguageServer implements LanguageServer, LanguageClientAware 
 
   @Override
   public CompletableFuture<InitializeResult> initialize(InitializeParams initializeParams) {
-    final InitializeResult response = new InitializeResult(new ServerCapabilities());
-    //Set the document synchronization capabilities to full.
-    response.getCapabilities().setTextDocumentSync(TextDocumentSyncKind.Full);
-    this.clientCapabilities = initializeParams.getCapabilities();
-
-        /* Check if dynamic registration of completion capability is allowed by the client. If so we don't register the capability.
-           Else, we register the completion capability.
-         */
-    if (!isDynamicCompletionRegistration()) {
-      response.getCapabilities().setCompletionProvider(new CompletionOptions());
-    }
-    return CompletableFuture.supplyAsync(() -> response);
+    return CompletableFuture.supplyAsync(() -> {
+      this.clientCapabilities = initializeParams.getCapabilities();
+      return new InitializeResult(createServerCapabilities());
+    });
   }
 
-  @Override
-  public void initialized(InitializedParams params) {
-    //Check if dynamic completion support is allowed, if so register.
-    if (isDynamicCompletionRegistration()) {
-      CompletionRegistrationOptions completionRegistrationOptions = new CompletionRegistrationOptions();
-      Registration completionRegistration = new Registration(UUID.randomUUID().toString(),
-          "textDocument/completion", completionRegistrationOptions);
-      languageClient.registerCapability(new RegistrationParams(List.of(completionRegistration)));
-    }
+  private ServerCapabilities createServerCapabilities() {
+    ServerCapabilities capabilities = new ServerCapabilities();
+    capabilities.setTextDocumentSync(TextDocumentSyncKind.Full);
+    capabilities.setCompletionProvider(new CompletionOptions());
+    capabilities.setHoverProvider(Boolean.TRUE);
+    capabilities.setDeclarationProvider(Boolean.TRUE);
+    capabilities.setDefinitionProvider(Boolean.TRUE);
+    return capabilities;
   }
 
   @Override
@@ -85,12 +69,5 @@ public class MaudeLanguageServer implements LanguageServer, LanguageClientAware 
   public void connect(LanguageClient languageClient) {
     this.languageClient = languageClient;
     LSClientLogger.getInstance().initialize(this.languageClient);
-  }
-
-  private boolean isDynamicCompletionRegistration() {
-    TextDocumentClientCapabilities textDocumentCapabilities =
-        clientCapabilities.getTextDocument();
-    return textDocumentCapabilities != null && textDocumentCapabilities.getCompletion() != null
-        && Boolean.FALSE.equals(textDocumentCapabilities.getCompletion().getDynamicRegistration());
   }
 }

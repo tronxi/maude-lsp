@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import {DeclarationClientCapabilities, LanguageClientOptions, RevealOutputChannelOn } from "vscode-languageclient";
+import {LanguageClientOptions, RevealOutputChannelOn } from "vscode-languageclient";
 import {LanguageClient, ServerOptions} from "vscode-languageclient/node";
 
 export class MaudeStdExtension {
@@ -16,11 +16,6 @@ export class MaudeStdExtension {
     logChannel.appendLine("Starting the Maude Std Language Server Extension!");
     logChannel.show(true);
     try {
-
-      const declarationClientCapabilities: DeclarationClientCapabilities = {
-        dynamicRegistration: true,
-        linkSupport: true,
-      };
 
       const serverOptions: ServerOptions = {
         command: 'java',

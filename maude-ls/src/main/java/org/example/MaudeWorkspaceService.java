@@ -7,7 +7,7 @@ import org.eclipse.lsp4j.services.WorkspaceService;
 
 public class MaudeWorkspaceService implements WorkspaceService {
 
-  private MaudeLanguageServer maudeLanguageServer;
+  private final MaudeLanguageServer maudeLanguageServer;
 
   private final LSClientLogger clientLogger;
 

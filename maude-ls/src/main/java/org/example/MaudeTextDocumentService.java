@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -46,7 +45,6 @@ public class MaudeTextDocumentService implements TextDocumentService {
       String fileContent = FileReaderUtil.readFile(uri);
       MaudeLexer maudeLexer = new MaudeLexer(fileContent);
       List<Token> tokens = maudeLexer.perform();
-      this.clientLogger.logMessage(String.valueOf(tokens.size()));
       for(Token token : tokens) {
         this.clientLogger.logMessage(token.toString());
       }
@@ -83,20 +81,32 @@ public class MaudeTextDocumentService implements TextDocumentService {
   }
 
   @Override
+  public CompletableFuture<Hover> hover(HoverParams params) {
+    return CompletableFuture.supplyAsync(() -> new Hover(List.of(Either.forLeft("hola"),Either.forLeft("seguro que estas sobre algo interesante"))));
+  }
+
+  @Override
   public CompletableFuture<Either<List<? extends Location>, List<? extends LocationLink>>> declaration(
       DeclarationParams params) {
-    this.clientLogger.logMessage("Operation '" + "text/declaration");
     return CompletableFuture.supplyAsync(() -> {
-      try {
-        List<Location> declaration = new ArrayList<>();
-        Location location = new Location();
-        location.setRange(new Range(new Position(0,0), new Position(0,10)));
-        declaration.add(new Location());
-        return Either.forLeft(declaration);
-      } catch (Throwable e) {
-        return null;
-      }
+      Location location = new Location();
+      location.setUri(params.getTextDocument().getUri());
+      location.setRange(new Range(new Position(1,1), new Position(1,5)));
+      Location location2 = new Location();
+      location2.setUri(params.getTextDocument().getUri());
+      location2.setRange(new Range(new Position(2,1), new Position(2,3)));
+      return Either.forLeft(List.of(location, location2));
     });
   }
 
+  @Override
+  public CompletableFuture<Either<List<? extends Location>, List<? extends LocationLink>>> definition(
+      DefinitionParams params) {
+    return CompletableFuture.supplyAsync(() -> {
+      Location location = new Location();
+      location.setUri(params.getTextDocument().getUri());
+      location.setRange(new Range(new Position(0,0), new Position(1,5)));
+      return Either.forLeft(List.of(location));
+    });
+  }
 }
