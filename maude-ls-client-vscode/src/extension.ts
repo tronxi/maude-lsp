@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { extensionInstance } from './core/extension';
+import { extensionInstance } from './core/maude-extension';
 
 export function activate(context: vscode.ExtensionContext) {
 	extensionInstance.setContext(context);

@@ -1,4 +1,3 @@
-import path = require("path");
 import * as net from 'net';
 import { ChildProcess, spawn } from 'mz/child_process';
 import * as vscode from "vscode";
@@ -9,14 +8,13 @@ import {
 
 import {
   LanguageClient,
-  ServerOptions,
   State,
   StreamInfo,
 } from "vscode-languageclient/node";
 
 const serverJarPath = '/Users/tronxi/workspace/maude-lsp/maude-ls-client-vscode/maude-ls-0.0.1-SNAPSHOT-jar-with-dependencies.jar';
 
-export class BallerinaExtension {
+export class MaudeExtension {
   private languageClient?: LanguageClient;
   private context?: vscode.ExtensionContext;
 
@@ -26,17 +24,15 @@ export class BallerinaExtension {
 
 
   async init(): Promise<void> {
-    console.log("paso")
     var logChannel = vscode.window.createOutputChannel("Maude");
-    logChannel.appendLine("Starting the Ballerina Language Server Extension!");
+    logChannel.appendLine("Starting the Maude Language Server Extension!");
     logChannel.show(true);
     try {
       const tcpServerOptions = () =>
       new Promise<ChildProcess | StreamInfo>((resolve, reject) => {
         const server = net.createServer(socket => {
-          logChannel.appendLine('Ballerina Language Server Process Disconnected')
           socket.on('end', () => {
-            logChannel.appendLine('Ballerina Language Server Process Disconnected')
+            logChannel.appendLine('Maude Language Server Process Disconnected')
           });
           server.close()
           resolve({ reader: socket, writer: socket })
@@ -45,25 +41,24 @@ export class BallerinaExtension {
           const childProcess = spawn('java', ['-jar', serverJarPath]);
           childProcess.stderr.on('data', (chunk: Buffer) => {
             const str = chunk.toString();
-            logChannel.appendLine('Ballerina Language Server:' + str);
+            logChannel.appendLine('Maude Language Server:' + str);
           });
           childProcess.stdout.on('data', (chunk: Buffer) => {
-            logChannel.appendLine('Ballerina Language Server:' + chunk + '');
+            logChannel.appendLine('Maude Language Server:' + chunk + '');
           });
           childProcess.on('exit', (code, signal) => {
             logChannel.appendLine(
               `Language server exited ` + (signal ? `from signal ${signal}` : `with exit code ${code}`)
             );
             if (code !== 0) {
-              logChannel.show()
+              logChannel.show();
             }
           });
           return childProcess
         });
       });
-      //creating the language client.
-      let clientId = "ballerina-vscode-lsclient";
-      let clientName = "Ballerina LS Client";
+      let clientId = "maude-vscode-lsclient";
+      let clientName = "Maude LS Client";
       let clientOptions: LanguageClientOptions = {
         documentSelector: [{ scheme: "file", language: "maude" }],
         outputChannel: logChannel,
@@ -83,9 +78,8 @@ export class BallerinaExtension {
               "Failed to initialize the extension"
             );
           } else if (stateChangeEvent.newState === State.Running) {
-            console.log("running");
             vscode.window.showInformationMessage(
-              "Extension initialized successfully!"
+              "Maude extension initialized successfully!"
             );
           }
         }
@@ -102,4 +96,4 @@ export class BallerinaExtension {
   }
 }
 
-export const extensionInstance = new BallerinaExtension();
+export const extensionInstance = new MaudeExtension();
