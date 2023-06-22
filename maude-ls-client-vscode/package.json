@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "mz": "2.7.0",
-    "vscode-languageserver-types": "3.14.0",
-    "vscode-languageclient": "7.0.0"
+    "vscode-languageserver-types": "3.17.3",
+    "vscode-languageclient": "8.1.0"
   }
 }

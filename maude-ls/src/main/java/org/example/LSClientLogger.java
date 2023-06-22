@@ -31,4 +31,24 @@ public class LSClientLogger {
     }
     client.logMessage(new MessageParams(MessageType.Info, message));
   }
+
+  public void errorMessage(String message) {
+    if(!isInitialized) {
+      return;
+    }
+    client.logMessage(new MessageParams(MessageType.Error, message));
+  }
+
+  public void showErrorMessage(String message) {
+    this.client.showMessage(new MessageParams(MessageType.Error, message));
+  }
+
+  public void showInfoMessage(String message) {
+    this.client.showMessage(new MessageParams(MessageType.Info, message));
+  }
+
+  public void showLogMessage(String message) {
+    this.client.showMessage(new MessageParams(MessageType.Warning, message));
+  }
+
 }
