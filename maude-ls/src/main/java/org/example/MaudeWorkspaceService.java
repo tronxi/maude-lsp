@@ -18,16 +18,19 @@ public class MaudeWorkspaceService implements WorkspaceService {
 
   @Override
   public void didChangeConfiguration(DidChangeConfigurationParams didChangeConfigurationParams) {
+    this.clientLogger.logMessage(didChangeConfigurationParams.toString());
     this.clientLogger.logMessage("Operation 'workspace/didChangeConfiguration' Ack");
   }
 
   @Override
   public void didChangeWatchedFiles(DidChangeWatchedFilesParams didChangeWatchedFilesParams) {
+    this.clientLogger.logMessage(didChangeWatchedFilesParams.toString());
     this.clientLogger.logMessage("Operation 'workspace/didChangeWatchedFiles' Ack");
   }
 
   @Override
   public void didRenameFiles(RenameFilesParams params) {
+    this.clientLogger.logMessage(params.toString());
     this.clientLogger.logMessage("Operation 'workspace/didRenameFiles' Ack");
   }
 }

@@ -42,6 +42,12 @@ export class MaudeSocketExtension {
         documentSelector: [{ scheme: "file", language: "maude" }],
         outputChannel: logChannel,
         revealOutputChannelOn: RevealOutputChannelOn.Never,
+        synchronize: {
+          configurationSection: ['maude'],
+          fileEvents: [
+            vscode.workspace.createFileSystemWatcher('**/*.maude'),
+          ],
+        },
       };
 
       this.languageClient = new LanguageClient(

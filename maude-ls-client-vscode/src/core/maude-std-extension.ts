@@ -26,6 +26,12 @@ export class MaudeStdExtension {
         documentSelector: [{ scheme: "file", language: "maude" }],
         outputChannel: logChannel,
         revealOutputChannelOn: RevealOutputChannelOn.Never,
+        synchronize: {
+          configurationSection: ['maude'],
+          fileEvents: [
+            vscode.workspace.createFileSystemWatcher('**/*.maude'),
+          ],
+        },
       };
       
       const clientId = "maude-vscode-lsclient";

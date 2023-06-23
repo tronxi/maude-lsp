@@ -2,6 +2,7 @@ package org.example.parser;
 
 public enum TokenType {
   FMOD("fmod"),
+  ENDFM("endfm"),
   IS("is"),
   SORTS("sorts"),
   SORT("sort"),
