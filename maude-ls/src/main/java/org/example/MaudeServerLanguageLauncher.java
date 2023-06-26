@@ -29,6 +29,7 @@ public class MaudeServerLanguageLauncher {
       ExprParser parser = new ExprParser(tokens);
       ParseTree tree = parser.prog();
       ParseTreeWalker walker = new ParseTreeWalker();
+      System.out.println(tree.toStringTree(parser));
       walker.walk(new ListenerImpl(parser), tree);
     } else if (args[0].equals("std")) {
       startServerStd(System.in, System.out);
