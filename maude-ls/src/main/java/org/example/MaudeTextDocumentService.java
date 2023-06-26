@@ -29,14 +29,6 @@ public class MaudeTextDocumentService implements TextDocumentService {
 
   @Override
   public void didChange(DidChangeTextDocumentParams didChangeTextDocumentParams) {
-//    PublishDiagnosticsParams params = new PublishDiagnosticsParams();
-//    params.setUri(didChangeTextDocumentParams.getTextDocument().getUri());
-//    Diagnostic diagnostic = new Diagnostic();
-//    diagnostic.setSeverity(DiagnosticSeverity.Error);
-//    diagnostic.setMessage("pasa algooo");
-//    diagnostic.setRange(new Range(new Position(0,0), new Position(0,10)));
-//    params.setDiagnostics(List.of(diagnostic));
-//    maudeLanguageServer.languageClient.publishDiagnostics(params);
     perform(didChangeTextDocumentParams.getTextDocument().getUri());
   }
 
@@ -64,6 +56,32 @@ public class MaudeTextDocumentService implements TextDocumentService {
     this.clientLogger.showInfoMessage("guardado");
     this.clientLogger.logMessage("Operation '" + "text/didSave" +
         "' {fileUri: '" + didSaveTextDocumentParams.getTextDocument().getUri() + "'} Saved - OK");
+  }
+
+  @Override
+  public CompletableFuture<SemanticTokens> semanticTokensFull(SemanticTokensParams params) {
+    this.clientLogger.showInfoMessage("SEMAAAAAAAAAAAAAAANTIIIIIIIIIIIIICCCCCCCCCC");
+    return CompletableFuture.supplyAsync(() -> new SemanticTokens(List.of(0,5,3,0,1)));
+  }
+
+  @Override
+  public CompletableFuture<Either<SemanticTokens, SemanticTokensDelta>> semanticTokensFullDelta(
+      SemanticTokensDeltaParams params) {
+    this.clientLogger.showInfoMessage("Deltaaaaaaa");
+    return CompletableFuture.supplyAsync(() -> Either.forLeft(new SemanticTokens(List.of(0,5,3,0,1))));
+  }
+
+  @Override
+  public CompletableFuture<DocumentDiagnosticReport> diagnostic(DocumentDiagnosticParams params) {
+    return CompletableFuture.supplyAsync(() -> {
+      this.clientLogger.logMessage("Operation '" + "DIAGNOSTIIIC");
+      Diagnostic diagnostic = new Diagnostic();
+      diagnostic.setSeverity(DiagnosticSeverity.Error);
+      diagnostic.setMessage("pasa algooo");
+      diagnostic.setRange(new Range(new Position(0,0), new Position(0,10)));
+      RelatedFullDocumentDiagnosticReport relatedFullDocumentDiagnosticReport = new RelatedFullDocumentDiagnosticReport(List.of(diagnostic));
+      return new DocumentDiagnosticReport(relatedFullDocumentDiagnosticReport);
+    });
   }
 
   @Override
