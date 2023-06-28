@@ -1,4 +1,7 @@
 lexer grammar MaudeLexer;
+TRY: 'try' ;
+TEST: 'test' ;
+NOT : 'not' ;
 OR_ELSE : 'or-else' ;
 BY: 'by' ;
 ST: 'such that';
@@ -51,6 +54,7 @@ ATTRIBUTE_ID: [a-z][a-zA-Z0-9_]* EXLUDE_TOKENS;
 PIPE : '|';
 SEMI_COLOM: ';' ;
 COLON : ':';
+EP : '!';
 CM: '?' ;
 LCB: '{';
 RCB: '}';

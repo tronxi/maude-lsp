@@ -11,11 +11,14 @@ strat:  IDLE |
   TEST_VARIANT term LSB ST condition RSB |
   strat SEMI_COLOM strat |
   strat PIPE strat |
-//  strat* |
   MREW_VARIANT term LSB ST condition RSB BY varStratList |
   stratCall |
-  strat OR_ELSE strat;
-
+  strat OR_ELSE strat |
+  NOT LP strat RP |
+  strat EP |
+  TRY LP strat RP |
+  TEST LP strat RP ;
+  
 ruleApp : LABEL_ID LSB LSB substitution RSB RSB LSB LCB strat (COMMA strat)* RCB RSB ;
 
 substitution: VAR_ID SUBSTITUION_SYMBOL term |
