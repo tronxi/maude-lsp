@@ -11,7 +11,7 @@ import org.example.generated.MaudeParser;
 public class Main {
 
   public static void main(String[] args) {
-    CharStream input = CharStreams.fromString("othername");
+    CharStream input = CharStreams.fromString("'othername'");
     MaudeLexer lexer = new MaudeLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     MaudeParser parser = new MaudeParser(tokens);
