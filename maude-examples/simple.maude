@@ -9,4 +9,4 @@ fmod SimpleModule is
     var A : Naa .
     eq add(zero, X) = X .
     eq add(succ(X), Y) = succ(add(X, Y)) .
-endfm  
+endfm

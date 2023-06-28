@@ -1,4 +1,4 @@
-package org.example.generated;// Generated from MaudeParser.g4 by ANTLR 4.13.0
+package org.example.antlr4generated;// Generated from MaudeParser.g4 by ANTLR 4.13.0
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -16,109 +16,73 @@ public class MaudeParserBaseListener implements MaudeParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStrat(MaudeParser.StratContext ctx) { }
+	@Override public void enterFmod(MaudeParser.FmodContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStrat(MaudeParser.StratContext ctx) { }
+	@Override public void exitFmod(MaudeParser.FmodContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRuleApp(MaudeParser.RuleAppContext ctx) { }
+	@Override public void enterProtecting(MaudeParser.ProtectingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRuleApp(MaudeParser.RuleAppContext ctx) { }
+	@Override public void exitProtecting(MaudeParser.ProtectingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubstitution(MaudeParser.SubstitutionContext ctx) { }
+	@Override public void enterExtending(MaudeParser.ExtendingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubstitution(MaudeParser.SubstitutionContext ctx) { }
+	@Override public void exitExtending(MaudeParser.ExtendingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStratCall(MaudeParser.StratCallContext ctx) { }
+	@Override public void enterGeneratedBy(MaudeParser.GeneratedByContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStratCall(MaudeParser.StratCallContext ctx) { }
+	@Override public void exitGeneratedBy(MaudeParser.GeneratedByContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVarStratList(MaudeParser.VarStratListContext ctx) { }
+	@Override public void enterIncluding(MaudeParser.IncludingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVarStratList(MaudeParser.VarStratListContext ctx) { }
+	@Override public void exitIncluding(MaudeParser.IncludingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpForm(MaudeParser.OpFormContext ctx) { }
+	@Override public void enterSort(MaudeParser.SortContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOpForm(MaudeParser.OpFormContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpFormPlus(MaudeParser.OpFormPlusContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpFormPlus(MaudeParser.OpFormPlusContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTerm(MaudeParser.TermContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTerm(MaudeParser.TermContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTermPlus(MaudeParser.TermPlusContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTermPlus(MaudeParser.TermPlusContext ctx) { }
+	@Override public void exitSort(MaudeParser.SortContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
