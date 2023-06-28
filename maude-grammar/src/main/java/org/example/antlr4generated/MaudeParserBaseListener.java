@@ -83,6 +83,30 @@ public class MaudeParserBaseListener implements MaudeParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSort(MaudeParser.SortContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSorts(MaudeParser.SortsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSorts(MaudeParser.SortsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubsorts(MaudeParser.SubsortsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubsorts(MaudeParser.SubsortsContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

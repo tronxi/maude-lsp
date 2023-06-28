@@ -29,8 +29,11 @@ public class Main {
             sort Nat .
             including INCLUDING_MODULE_NAME .
             sort Zero .
-                
-
+            sort Hola{ Hola, Adios} .
+            sort Hola Como Estas .
+            sorts Hola Como Estas .
+            sorts Hola{Hol} Como Estas .
+            subsorts Sort1 Sort2 < Sort3 Sort4 < Sort5 Sort6 .
                 
         endfm
         """;
