@@ -2,15 +2,13 @@ parser grammar MaudeParser;
 
 options { tokenVocab=MaudeLexer; }
 
-fmod: FMOD IDENTIFIER IS moduleExpr* ENDFM;
+fmod: FMOD IDENTIFIER IS modElt* ENDFM;
 
-moduleExpr: PROTECTING #Protecting |
+modElt: PROTECTING #Protecting |
   EXTENDING #Extending|
   GENERATED_BY #GeneratedBy|
   INCLUDING #Including |
-  SORT #Sort |
-//  SORT_WITH_PARAM #SortWithParam |
-  SORTS #Sorts |
-//  SORTS_WITH_PARAM #SortsWithParam |
-  SUBSORTS IDENTIFIER+ ( LT IDENTIFIER+ )+ DOT #Subsorts
+  SORTS sort+ DOT #Sorts
   ;
+
+ sort: IDENTIFIER | sort LCB sort (COMMA sort)* RCB ;

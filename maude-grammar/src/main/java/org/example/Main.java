@@ -32,16 +32,9 @@ fmod BOARD is
   protecting PIECE .
   extending EXTENDING_MODULE_NAME .
   generated-by GENERATED_BY_MODULE_NAME .
-  sort Nat .
   including INCLUDING_MODULE_NAME .
   including INCLUDING .
-  sort Zero .
-  sort Hola{ Hola, Adios} .
-  sort Hola Como Estas .
-  sorts Hola Como Estas .
-  sorts Hola{Hol} Como Estas .
-  subsorts Sort1 Sort2 < Sort3 Sort4 < Sort5 Sort6 .
-                
+  sorts Hola WithPar{Par} P{A{B}}.
   endfm
 """;
   }

@@ -65,18 +65,6 @@ public interface MaudeParserListener extends ParseTreeListener {
 	 */
 	void exitIncluding(MaudeParser.IncludingContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Sort}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterSort(MaudeParser.SortContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Sort}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitSort(MaudeParser.SortContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code Sorts}
 	 * labeled alternative in {@link MaudeParser#moduleExpr}.
 	 * @param ctx the parse tree
@@ -89,15 +77,13 @@ public interface MaudeParserListener extends ParseTreeListener {
 	 */
 	void exitSorts(MaudeParser.SortsContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Subsorts}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * Enter a parse tree produced by {@link MaudeParser#sort}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubsorts(MaudeParser.SubsortsContext ctx);
+	void enterSort(MaudeParser.SortContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Subsorts}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * Exit a parse tree produced by {@link MaudeParser#sort}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubsorts(MaudeParser.SubsortsContext ctx);
+	void exitSort(MaudeParser.SortContext ctx);
 }

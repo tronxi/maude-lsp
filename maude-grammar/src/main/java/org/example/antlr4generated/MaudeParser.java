@@ -17,28 +17,29 @@ public class MaudeParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		FMOD=1, IS=2, ENDFM=3, PROTECTING=4, EXTENDING=5, GENERATED_BY=6, INCLUDING=7, 
-		SORTS=8, SORT=9, SUBSORTS=10, LT=11, IDENTIFIER=12, DOT=13, WS=14;
+		SORTS=8, SUBSORTS=9, IDENTIFIER=10, LT=11, LCB=12, RCB=13, COMMA=14, DOT=15, 
+		WS=16;
 	public static final int
-		RULE_fmod = 0, RULE_moduleExpr = 1;
+		RULE_fmod = 0, RULE_moduleExpr = 1, RULE_sort = 2;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"fmod", "moduleExpr"
+			"fmod", "moduleExpr", "sort"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'fmod'", "'is'", "'endfm'", null, null, null, null, null, null, 
-			"'subsorts'", "'<'", null, "'.'"
+			null, "'fmod'", "'is'", "'endfm'", null, null, null, null, "'sorts'", 
+			"'subsorts'", null, "'<'", "'{'", "'}'", "','", "'.'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "FMOD", "IS", "ENDFM", "PROTECTING", "EXTENDING", "GENERATED_BY", 
-			"INCLUDING", "SORTS", "SORT", "SUBSORTS", "LT", "IDENTIFIER", "DOT", 
-			"WS"
+			"INCLUDING", "SORTS", "SUBSORTS", "IDENTIFIER", "LT", "LCB", "RCB", "COMMA", 
+			"DOT", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -125,27 +126,27 @@ public class MaudeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(4);
-			match(FMOD);
-			setState(5);
-			match(IDENTIFIER);
 			setState(6);
+			match(FMOD);
+			setState(7);
+			match(IDENTIFIER);
+			setState(8);
 			match(IS);
-			setState(10);
+			setState(12);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 2032L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 496L) != 0)) {
 				{
 				{
-				setState(7);
+				setState(9);
 				moduleExpr();
 				}
 				}
-				setState(12);
+				setState(14);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(13);
+			setState(15);
 			match(ENDFM);
 			}
 		}
@@ -188,6 +189,13 @@ public class MaudeParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class SortsContext extends ModuleExprContext {
 		public TerminalNode SORTS() { return getToken(MaudeParser.SORTS, 0); }
+		public TerminalNode DOT() { return getToken(MaudeParser.DOT, 0); }
+		public List<SortContext> sort() {
+			return getRuleContexts(SortContext.class);
+		}
+		public SortContext sort(int i) {
+			return getRuleContext(SortContext.class,i);
+		}
 		public SortsContext(ModuleExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -225,41 +233,6 @@ public class MaudeParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class SortContext extends ModuleExprContext {
-		public TerminalNode SORT() { return getToken(MaudeParser.SORT, 0); }
-		public SortContext(ModuleExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterSort(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).exitSort(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class SubsortsContext extends ModuleExprContext {
-		public TerminalNode SUBSORTS() { return getToken(MaudeParser.SUBSORTS, 0); }
-		public TerminalNode DOT() { return getToken(MaudeParser.DOT, 0); }
-		public List<TerminalNode> IDENTIFIER() { return getTokens(MaudeParser.IDENTIFIER); }
-		public TerminalNode IDENTIFIER(int i) {
-			return getToken(MaudeParser.IDENTIFIER, i);
-		}
-		public List<TerminalNode> LT() { return getTokens(MaudeParser.LT); }
-		public TerminalNode LT(int i) {
-			return getToken(MaudeParser.LT, i);
-		}
-		public SubsortsContext(ModuleExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterSubsorts(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).exitSubsorts(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class IncludingContext extends ModuleExprContext {
 		public TerminalNode INCLUDING() { return getToken(MaudeParser.INCLUDING, 0); }
 		public IncludingContext(ModuleExprContext ctx) { copyFrom(ctx); }
@@ -278,14 +251,14 @@ public class MaudeParser extends Parser {
 		enterRule(_localctx, 2, RULE_moduleExpr);
 		int _la;
 		try {
-			setState(38);
+			setState(29);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case PROTECTING:
 				_localctx = new ProtectingContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(15);
+				setState(17);
 				match(PROTECTING);
 				}
 				break;
@@ -293,7 +266,7 @@ public class MaudeParser extends Parser {
 				_localctx = new ExtendingContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(16);
+				setState(18);
 				match(EXTENDING);
 				}
 				break;
@@ -301,7 +274,7 @@ public class MaudeParser extends Parser {
 				_localctx = new GeneratedByContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(17);
+				setState(19);
 				match(GENERATED_BY);
 				}
 				break;
@@ -309,32 +282,16 @@ public class MaudeParser extends Parser {
 				_localctx = new IncludingContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(18);
+				setState(20);
 				match(INCLUDING);
-				}
-				break;
-			case SORT:
-				_localctx = new SortContext(_localctx);
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(19);
-				match(SORT);
 				}
 				break;
 			case SORTS:
 				_localctx = new SortsContext(_localctx);
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(20);
-				match(SORTS);
-				}
-				break;
-			case SUBSORTS:
-				_localctx = new SubsortsContext(_localctx);
-				enterOuterAlt(_localctx, 7);
+				enterOuterAlt(_localctx, 5);
 				{
 				setState(21);
-				match(SUBSORTS);
+				match(SORTS);
 				setState(23); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -342,42 +299,14 @@ public class MaudeParser extends Parser {
 					{
 					{
 					setState(22);
-					match(IDENTIFIER);
+					sort(0);
 					}
 					}
 					setState(25); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==IDENTIFIER );
-				setState(33); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				do {
-					{
-					{
-					setState(27);
-					match(LT);
-					setState(29); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-					do {
-						{
-						{
-						setState(28);
-						match(IDENTIFIER);
-						}
-						}
-						setState(31); 
-						_errHandler.sync(this);
-						_la = _input.LA(1);
-					} while ( _la==IDENTIFIER );
-					}
-					}
-					setState(35); 
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				} while ( _la==LT );
-				setState(37);
+				setState(27);
 				match(DOT);
 				}
 				break;
@@ -396,36 +325,161 @@ public class MaudeParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
+	public static class SortContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(MaudeParser.IDENTIFIER, 0); }
+		public List<SortContext> sort() {
+			return getRuleContexts(SortContext.class);
+		}
+		public SortContext sort(int i) {
+			return getRuleContext(SortContext.class,i);
+		}
+		public TerminalNode LCB() { return getToken(MaudeParser.LCB, 0); }
+		public TerminalNode RCB() { return getToken(MaudeParser.RCB, 0); }
+		public List<TerminalNode> COMMA() { return getTokens(MaudeParser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(MaudeParser.COMMA, i);
+		}
+		public SortContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_sort; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterSort(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).exitSort(this);
+		}
+	}
+
+	public final SortContext sort() throws RecognitionException {
+		return sort(0);
+	}
+
+	private SortContext sort(int _p) throws RecognitionException {
+		ParserRuleContext _parentctx = _ctx;
+		int _parentState = getState();
+		SortContext _localctx = new SortContext(_ctx, _parentState);
+		SortContext _prevctx = _localctx;
+		int _startState = 4;
+		enterRecursionRule(_localctx, 4, RULE_sort, _p);
+		int _la;
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(32);
+			match(IDENTIFIER);
+			}
+			_ctx.stop = _input.LT(-1);
+			setState(48);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					if ( _parseListeners!=null ) triggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					{
+					_localctx = new SortContext(_parentctx, _parentState);
+					pushNewRecursionContext(_localctx, _startState, RULE_sort);
+					setState(34);
+					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+					setState(35);
+					match(LCB);
+					setState(36);
+					sort(0);
+					setState(41);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+					while (_la==COMMA) {
+						{
+						{
+						setState(37);
+						match(COMMA);
+						setState(38);
+						sort(0);
+						}
+						}
+						setState(43);
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+					}
+					setState(44);
+					match(RCB);
+					}
+					} 
+				}
+				setState(50);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			unrollRecursionContexts(_parentctx);
+		}
+		return _localctx;
+	}
+
+	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
+		switch (ruleIndex) {
+		case 2:
+			return sort_sempred((SortContext)_localctx, predIndex);
+		}
+		return true;
+	}
+	private boolean sort_sempred(SortContext _localctx, int predIndex) {
+		switch (predIndex) {
+		case 0:
+			return precpred(_ctx, 1);
+		}
+		return true;
+	}
+
 	public static final String _serializedATN =
-		"\u0004\u0001\u000e)\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0001"+
-		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0005\u0000\t\b\u0000\n\u0000"+
-		"\f\u0000\f\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0004"+
-		"\u0001\u0018\b\u0001\u000b\u0001\f\u0001\u0019\u0001\u0001\u0001\u0001"+
-		"\u0004\u0001\u001e\b\u0001\u000b\u0001\f\u0001\u001f\u0004\u0001\"\b\u0001"+
-		"\u000b\u0001\f\u0001#\u0001\u0001\u0003\u0001\'\b\u0001\u0001\u0001\u0000"+
-		"\u0000\u0002\u0000\u0002\u0000\u00000\u0000\u0004\u0001\u0000\u0000\u0000"+
-		"\u0002&\u0001\u0000\u0000\u0000\u0004\u0005\u0005\u0001\u0000\u0000\u0005"+
-		"\u0006\u0005\f\u0000\u0000\u0006\n\u0005\u0002\u0000\u0000\u0007\t\u0003"+
-		"\u0002\u0001\u0000\b\u0007\u0001\u0000\u0000\u0000\t\f\u0001\u0000\u0000"+
-		"\u0000\n\b\u0001\u0000\u0000\u0000\n\u000b\u0001\u0000\u0000\u0000\u000b"+
-		"\r\u0001\u0000\u0000\u0000\f\n\u0001\u0000\u0000\u0000\r\u000e\u0005\u0003"+
-		"\u0000\u0000\u000e\u0001\u0001\u0000\u0000\u0000\u000f\'\u0005\u0004\u0000"+
-		"\u0000\u0010\'\u0005\u0005\u0000\u0000\u0011\'\u0005\u0006\u0000\u0000"+
-		"\u0012\'\u0005\u0007\u0000\u0000\u0013\'\u0005\t\u0000\u0000\u0014\'\u0005"+
-		"\b\u0000\u0000\u0015\u0017\u0005\n\u0000\u0000\u0016\u0018\u0005\f\u0000"+
-		"\u0000\u0017\u0016\u0001\u0000\u0000\u0000\u0018\u0019\u0001\u0000\u0000"+
-		"\u0000\u0019\u0017\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000\u0000"+
-		"\u0000\u001a!\u0001\u0000\u0000\u0000\u001b\u001d\u0005\u000b\u0000\u0000"+
-		"\u001c\u001e\u0005\f\u0000\u0000\u001d\u001c\u0001\u0000\u0000\u0000\u001e"+
-		"\u001f\u0001\u0000\u0000\u0000\u001f\u001d\u0001\u0000\u0000\u0000\u001f"+
-		" \u0001\u0000\u0000\u0000 \"\u0001\u0000\u0000\u0000!\u001b\u0001\u0000"+
-		"\u0000\u0000\"#\u0001\u0000\u0000\u0000#!\u0001\u0000\u0000\u0000#$\u0001"+
-		"\u0000\u0000\u0000$%\u0001\u0000\u0000\u0000%\'\u0005\r\u0000\u0000&\u000f"+
-		"\u0001\u0000\u0000\u0000&\u0010\u0001\u0000\u0000\u0000&\u0011\u0001\u0000"+
-		"\u0000\u0000&\u0012\u0001\u0000\u0000\u0000&\u0013\u0001\u0000\u0000\u0000"+
-		"&\u0014\u0001\u0000\u0000\u0000&\u0015\u0001\u0000\u0000\u0000\'\u0003"+
-		"\u0001\u0000\u0000\u0000\u0005\n\u0019\u001f#&";
+		"\u0004\u0001\u00104\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0005"+
+		"\u0000\u000b\b\u0000\n\u0000\f\u0000\u000e\t\u0000\u0001\u0000\u0001\u0000"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0004\u0001\u0018\b\u0001\u000b\u0001\f\u0001\u0019\u0001\u0001\u0001"+
+		"\u0001\u0003\u0001\u001e\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0005\u0002(\b"+
+		"\u0002\n\u0002\f\u0002+\t\u0002\u0001\u0002\u0001\u0002\u0005\u0002/\b"+
+		"\u0002\n\u0002\f\u00022\t\u0002\u0001\u0002\u0000\u0001\u0004\u0003\u0000"+
+		"\u0002\u0004\u0000\u00008\u0000\u0006\u0001\u0000\u0000\u0000\u0002\u001d"+
+		"\u0001\u0000\u0000\u0000\u0004\u001f\u0001\u0000\u0000\u0000\u0006\u0007"+
+		"\u0005\u0001\u0000\u0000\u0007\b\u0005\n\u0000\u0000\b\f\u0005\u0002\u0000"+
+		"\u0000\t\u000b\u0003\u0002\u0001\u0000\n\t\u0001\u0000\u0000\u0000\u000b"+
+		"\u000e\u0001\u0000\u0000\u0000\f\n\u0001\u0000\u0000\u0000\f\r\u0001\u0000"+
+		"\u0000\u0000\r\u000f\u0001\u0000\u0000\u0000\u000e\f\u0001\u0000\u0000"+
+		"\u0000\u000f\u0010\u0005\u0003\u0000\u0000\u0010\u0001\u0001\u0000\u0000"+
+		"\u0000\u0011\u001e\u0005\u0004\u0000\u0000\u0012\u001e\u0005\u0005\u0000"+
+		"\u0000\u0013\u001e\u0005\u0006\u0000\u0000\u0014\u001e\u0005\u0007\u0000"+
+		"\u0000\u0015\u0017\u0005\b\u0000\u0000\u0016\u0018\u0003\u0004\u0002\u0000"+
+		"\u0017\u0016\u0001\u0000\u0000\u0000\u0018\u0019\u0001\u0000\u0000\u0000"+
+		"\u0019\u0017\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000\u0000\u0000"+
+		"\u001a\u001b\u0001\u0000\u0000\u0000\u001b\u001c\u0005\u000f\u0000\u0000"+
+		"\u001c\u001e\u0001\u0000\u0000\u0000\u001d\u0011\u0001\u0000\u0000\u0000"+
+		"\u001d\u0012\u0001\u0000\u0000\u0000\u001d\u0013\u0001\u0000\u0000\u0000"+
+		"\u001d\u0014\u0001\u0000\u0000\u0000\u001d\u0015\u0001\u0000\u0000\u0000"+
+		"\u001e\u0003\u0001\u0000\u0000\u0000\u001f \u0006\u0002\uffff\uffff\u0000"+
+		" !\u0005\n\u0000\u0000!0\u0001\u0000\u0000\u0000\"#\n\u0001\u0000\u0000"+
+		"#$\u0005\f\u0000\u0000$)\u0003\u0004\u0002\u0000%&\u0005\u000e\u0000\u0000"+
+		"&(\u0003\u0004\u0002\u0000\'%\u0001\u0000\u0000\u0000(+\u0001\u0000\u0000"+
+		"\u0000)\'\u0001\u0000\u0000\u0000)*\u0001\u0000\u0000\u0000*,\u0001\u0000"+
+		"\u0000\u0000+)\u0001\u0000\u0000\u0000,-\u0005\r\u0000\u0000-/\u0001\u0000"+
+		"\u0000\u0000.\"\u0001\u0000\u0000\u0000/2\u0001\u0000\u0000\u00000.\u0001"+
+		"\u0000\u0000\u000001\u0001\u0000\u0000\u00001\u0005\u0001\u0000\u0000"+
+		"\u000020\u0001\u0000\u0000\u0000\u0005\f\u0019\u001d)0";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

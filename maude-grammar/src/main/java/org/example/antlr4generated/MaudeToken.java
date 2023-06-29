@@ -1,4 +1,6 @@
-package org.example.maude;
+package org.example.antlr4generated;
+
+import org.example.maude.MaudeRange;
 
 public class MaudeToken {
   String token;
