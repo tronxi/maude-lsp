@@ -141,6 +141,12 @@ public class MaudeListener extends MaudeParserBaseListener {
 
     MaudeToken opName = generateFromTerminalNode(ctx.OP(), 2, 1);
     maudeOp.setOpName(opName);
+
+    TerminalNode attrContext = ctx.ATTR();
+    if(attrContext != null) {
+      MaudeToken attr = generateFromTerminalNode(attrContext);
+      maudeOp.setAttributes(attr);
+    }
     operators.add(maudeOp);
   }
 

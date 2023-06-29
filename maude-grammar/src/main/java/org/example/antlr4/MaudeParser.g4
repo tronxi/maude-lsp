@@ -14,7 +14,7 @@ modElt: PROTECTING #Protecting |
   INCLUDING #Including |
   SORTS sort+ DOT #Sorts |
   SUBSORTS sort+ ( LT sort+)+ DOT #Subsort |
-  OP sort* ARROW coarity=sort DOT #Op |
+  OP sort* ARROW coarity=sort ATTR? DOT  #Op |
   VARS IDENTIFIER+ COLON type=sort DOT #Vars
  ;
 

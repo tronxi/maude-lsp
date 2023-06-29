@@ -16,6 +16,8 @@ SUBSORTS: 'subsorts' ;
 
 OP: 'op' .*? COLON ;
 
+ATTR: LB .*? RB ; //TODO is it necessary to check the value of the attributes at this level?
+
 VARS: 'vars' ;
 
 IDENTIFIER: ('a'..'z' | 'A'..'Z' | '@') ( ('a'..'z' | 'A'..'Z' | '_' | '$' | '@' | '0'..'9' ) |
@@ -27,8 +29,10 @@ RCB: '}' ;
 COMMA : ',' ;
 DOT: '.';
 ARROW : '->' ;
-
 COLON: ':';
+
+fragment LB : '[';
+fragment RB : ']';
 fragment BACKQUOTE: '`';
 fragment ESCAPED_CHAR: '\\{' | '\\}' | '\\(' | '\\)' | '\\[' | '\\]' | '\\,';
 
