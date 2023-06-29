@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.example.antlr4generated.MaudeLexer;
 import org.example.antlr4generated.MaudeParser;
-import org.example.maude.Fmod;
+import org.example.maude.MaudeTop;
 
 public class Main {
 
@@ -21,8 +21,8 @@ public class Main {
     MaudeListener maudeListener = new MaudeListener(parser);
     walker.walk(maudeListener, tree);
 //    System.out.println(tree.toStringTree(parser));
-    Fmod fmod = maudeListener.getFmod();
-    System.out.println(fmod);
+    MaudeTop maudeTop = maudeListener.getMaudeTop();
+    System.out.println(maudeTop);
   }
 
   private static String getModule() {
@@ -35,6 +35,12 @@ fmod BOARD is
   including INCLUDING_MODULE_NAME .
   including INCLUDING .
   sorts Hola WithPar{Par} P{A{B}}.
+  endfm
+  
+ fmod OTRO is
+  protecting Mod .
+  extending Ext .
+  sorts Nat .
   endfm
 """;
   }

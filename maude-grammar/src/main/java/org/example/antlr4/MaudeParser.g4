@@ -4,7 +4,7 @@ options { tokenVocab=MaudeLexer; }
 
 maudeTop: module ;
 
-module: fmod;
+module: fmod*;
 
 fmod: FMOD IDENTIFIER IS modElt* ENDFM;
 

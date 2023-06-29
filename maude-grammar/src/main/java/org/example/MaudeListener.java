@@ -17,9 +17,11 @@ import org.example.maude.Fmod;
 import org.example.maude.MaudePosition;
 import org.example.maude.MaudeRange;
 import org.example.maude.MaudeToken;
+import org.example.maude.MaudeTop;
 
 public class MaudeListener extends MaudeParserBaseListener {
 
+  private MaudeTop maudeTop = new MaudeTop();
   private Fmod fmod;
   List<MaudeToken> includingList = new ArrayList<>();
   List<MaudeToken> protectingList = new ArrayList<>();
@@ -43,6 +45,13 @@ public class MaudeListener extends MaudeParserBaseListener {
     fmod.setExtending(extendingList);
     fmod.setGeneratedBy(generetatedByList);
     fmod.setSorts(sorts);
+    maudeTop.addFmod(fmod);
+    fmod = new Fmod();
+    includingList = new ArrayList<>();
+    protectingList = new ArrayList<>();
+    extendingList = new ArrayList<>();
+    generetatedByList = new ArrayList<>();
+    sorts = new ArrayList<>();
   }
 
 
@@ -83,8 +92,8 @@ public class MaudeListener extends MaudeParserBaseListener {
   }
 
 
-  public Fmod getFmod() {
-    return fmod;
+  public MaudeTop getMaudeTop() {
+    return maudeTop;
   }
 
   private MaudeToken generateFromTerminalNode(TerminalNode terminalNode) {
