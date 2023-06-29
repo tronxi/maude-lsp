@@ -14,7 +14,11 @@ SORTS: 'sorts';
 
 SUBSORTS: 'subsorts' ;
 
-IDENTIFIER: ('a'..'z' | 'A'..'Z') ( ('a'..'z' | 'A'..'Z' | '_' | '$' | '0'..'9' ) |
+OP: 'op' .*? COLON ;
+
+VARS: 'vars' ;
+
+IDENTIFIER: ('a'..'z' | 'A'..'Z' | '@') ( ('a'..'z' | 'A'..'Z' | '_' | '$' | '@' | '0'..'9' ) |
  (BACKQUOTE ESCAPED_CHAR)+ )*;
 
 LT: '<' ;
@@ -22,7 +26,9 @@ LCB: '{' ;
 RCB: '}' ;
 COMMA : ',' ;
 DOT: '.';
+ARROW : '->' ;
 
+COLON: ':';
 fragment BACKQUOTE: '`';
 fragment ESCAPED_CHAR: '\\{' | '\\}' | '\\(' | '\\)' | '\\[' | '\\]' | '\\,';
 

@@ -10,6 +10,8 @@ public class Fmod {
   private List<MaudeToken> generatedBy;
   private List<MaudeToken> sorts;
   private List<MaudeToken> subsorts;
+  private List<MaudeOp> operators;
+  private List<MaudeVar> vars;
 
   @Override
   public String toString() {
@@ -21,6 +23,8 @@ public class Fmod {
         "\n generated-by=" + generatedBy +
         "\n sorts=" + sorts +
         "\n subsorts=" + subsorts +
+        "\n operators=" + operators +
+        "\n vars=" + vars +
         "\n}";
   }
 
@@ -78,5 +82,21 @@ public class Fmod {
 
   public void setSubsorts(List<MaudeToken> subsorts) {
     this.subsorts = subsorts;
+  }
+
+  public List<MaudeOp> getOperators() {
+    return operators;
+  }
+
+  public void setOperators(List<MaudeOp> operators) {
+    this.operators = operators;
+  }
+
+  public List<MaudeVar> getVars() {
+    return vars;
+  }
+
+  public void setVars(List<MaudeVar> vars) {
+    this.vars = vars;
   }
 }

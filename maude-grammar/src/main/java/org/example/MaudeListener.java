@@ -3,24 +3,26 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.TokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.example.antlr4generated.MaudeParser;
 import org.example.antlr4generated.MaudeParser.ExtendingContext;
 import org.example.antlr4generated.MaudeParser.FmodContext;
 import org.example.antlr4generated.MaudeParser.GeneratedByContext;
 import org.example.antlr4generated.MaudeParser.IncludingContext;
+import org.example.antlr4generated.MaudeParser.OpContext;
 import org.example.antlr4generated.MaudeParser.ProtectingContext;
 import org.example.antlr4generated.MaudeParser.SortContext;
 import org.example.antlr4generated.MaudeParser.SortsContext;
 import org.example.antlr4generated.MaudeParser.SubsortContext;
+import org.example.antlr4generated.MaudeParser.VarsContext;
 import org.example.antlr4generated.MaudeParserBaseListener;
 import org.example.maude.Fmod;
+import org.example.maude.MaudeOp;
 import org.example.maude.MaudePosition;
 import org.example.maude.MaudeRange;
 import org.example.maude.MaudeToken;
 import org.example.maude.MaudeTop;
+import org.example.maude.MaudeVar;
 
 public class MaudeListener extends MaudeParserBaseListener {
 
@@ -31,6 +33,8 @@ public class MaudeListener extends MaudeParserBaseListener {
   private List<MaudeToken> generetatedByList = new ArrayList<>();
   private List<MaudeToken> sorts = new ArrayList<>();
   private List<MaudeToken> subsorts = new ArrayList<>();
+  private List<MaudeOp> operators = new ArrayList<>();
+  private List<MaudeVar> vars = new ArrayList<>();
 
   private final MaudeParser maudeParser;
 
@@ -49,6 +53,8 @@ public class MaudeListener extends MaudeParserBaseListener {
     fmod.setGeneratedBy(generetatedByList);
     fmod.setSorts(sorts);
     fmod.setSubsorts(subsorts);
+    fmod.setOperators(operators);
+    fmod.setVars(vars);
     maudeTop.addFmod(fmod);
     includingList = new ArrayList<>();
     protectingList = new ArrayList<>();
@@ -56,6 +62,8 @@ public class MaudeListener extends MaudeParserBaseListener {
     generetatedByList = new ArrayList<>();
     sorts = new ArrayList<>();
     subsorts = new ArrayList<>();
+    operators = new ArrayList<>();
+    vars = new ArrayList<>();
   }
 
 
@@ -110,6 +118,43 @@ public class MaudeListener extends MaudeParserBaseListener {
       MaudeToken subsort = generateFromContext(ctx, 8, 1, startPosition, endPosition);
       subsorts.add(subsort);
     }catch (Exception ignored) {
+
+    }
+  }
+
+  @Override
+  public void exitOp(OpContext ctx) {
+    MaudeOp maudeOp = new MaudeOp();
+
+    SortContext coarity = ctx.coarity;
+    MaudeToken coarityToken = generateFromContext(coarity);
+    maudeOp.setCoarityOperators(coarityToken);
+
+
+    List<MaudeToken> arityTokens = new ArrayList<>();
+    for(SortContext sortContext : ctx.sort()) {
+      if(sortContext != coarity) {
+        arityTokens.add(generateFromContext(sortContext));
+      }
+    }
+    maudeOp.setArityOperators(arityTokens);
+
+    MaudeToken opName = generateFromTerminalNode(ctx.OP(), 2, 1);
+    maudeOp.setOpName(opName);
+    operators.add(maudeOp);
+  }
+
+  @Override
+  public void exitVars(VarsContext ctx) {
+
+    MaudeToken type = generateFromContext(ctx.type);
+
+    for(TerminalNode terminalNode : ctx.IDENTIFIER()) {
+      MaudeVar maudeVar = new MaudeVar();
+      MaudeToken maudeTokenVar = generateFromTerminalNode(terminalNode);
+      maudeVar.setVar(maudeTokenVar);
+      maudeVar.setType(type);
+      vars.add(maudeVar);
 
     }
   }
