@@ -7,6 +7,26 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface MaudeParserListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link MaudeParser#maudeTop}.
+	 * @param ctx the parse tree
+	 */
+	void enterMaudeTop(MaudeParser.MaudeTopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MaudeParser#maudeTop}.
+	 * @param ctx the parse tree
+	 */
+	void exitMaudeTop(MaudeParser.MaudeTopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MaudeParser#module}.
+	 * @param ctx the parse tree
+	 */
+	void enterModule(MaudeParser.ModuleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MaudeParser#module}.
+	 * @param ctx the parse tree
+	 */
+	void exitModule(MaudeParser.ModuleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MaudeParser#fmod}.
 	 * @param ctx the parse tree
 	 */
@@ -18,61 +38,61 @@ public interface MaudeParserListener extends ParseTreeListener {
 	void exitFmod(MaudeParser.FmodContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Protecting}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void enterProtecting(MaudeParser.ProtectingContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code Protecting}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void exitProtecting(MaudeParser.ProtectingContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Extending}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void enterExtending(MaudeParser.ExtendingContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code Extending}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void exitExtending(MaudeParser.ExtendingContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code GeneratedBy}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void enterGeneratedBy(MaudeParser.GeneratedByContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code GeneratedBy}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void exitGeneratedBy(MaudeParser.GeneratedByContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Including}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void enterIncluding(MaudeParser.IncludingContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code Including}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void exitIncluding(MaudeParser.IncludingContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Sorts}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void enterSorts(MaudeParser.SortsContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code Sorts}
-	 * labeled alternative in {@link MaudeParser#moduleExpr}.
+	 * labeled alternative in {@link MaudeParser#modElt}.
 	 * @param ctx the parse tree
 	 */
 	void exitSorts(MaudeParser.SortsContext ctx);

@@ -20,10 +20,10 @@ public class MaudeParser extends Parser {
 		SORTS=8, SUBSORTS=9, IDENTIFIER=10, LT=11, LCB=12, RCB=13, COMMA=14, DOT=15, 
 		WS=16;
 	public static final int
-		RULE_fmod = 0, RULE_moduleExpr = 1, RULE_sort = 2;
+		RULE_maudeTop = 0, RULE_module = 1, RULE_fmod = 2, RULE_modElt = 3, RULE_sort = 4;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"fmod", "moduleExpr", "sort"
+			"maudeTop", "module", "fmod", "modElt", "sort"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -94,16 +94,96 @@ public class MaudeParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
+	public static class MaudeTopContext extends ParserRuleContext {
+		public ModuleContext module() {
+			return getRuleContext(ModuleContext.class,0);
+		}
+		public MaudeTopContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_maudeTop; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterMaudeTop(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).exitMaudeTop(this);
+		}
+	}
+
+	public final MaudeTopContext maudeTop() throws RecognitionException {
+		MaudeTopContext _localctx = new MaudeTopContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_maudeTop);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(10);
+			module();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ModuleContext extends ParserRuleContext {
+		public FmodContext fmod() {
+			return getRuleContext(FmodContext.class,0);
+		}
+		public ModuleContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_module; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterModule(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).exitModule(this);
+		}
+	}
+
+	public final ModuleContext module() throws RecognitionException {
+		ModuleContext _localctx = new ModuleContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_module);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(12);
+			fmod();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class FmodContext extends ParserRuleContext {
 		public TerminalNode FMOD() { return getToken(MaudeParser.FMOD, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(MaudeParser.IDENTIFIER, 0); }
 		public TerminalNode IS() { return getToken(MaudeParser.IS, 0); }
 		public TerminalNode ENDFM() { return getToken(MaudeParser.ENDFM, 0); }
-		public List<ModuleExprContext> moduleExpr() {
-			return getRuleContexts(ModuleExprContext.class);
+		public List<ModEltContext> modElt() {
+			return getRuleContexts(ModEltContext.class);
 		}
-		public ModuleExprContext moduleExpr(int i) {
-			return getRuleContext(ModuleExprContext.class,i);
+		public ModEltContext modElt(int i) {
+			return getRuleContext(ModEltContext.class,i);
 		}
 		public FmodContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -121,32 +201,32 @@ public class MaudeParser extends Parser {
 
 	public final FmodContext fmod() throws RecognitionException {
 		FmodContext _localctx = new FmodContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_fmod);
+		enterRule(_localctx, 4, RULE_fmod);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(6);
+			setState(14);
 			match(FMOD);
-			setState(7);
+			setState(15);
 			match(IDENTIFIER);
-			setState(8);
+			setState(16);
 			match(IS);
-			setState(12);
+			setState(20);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 496L) != 0)) {
 				{
 				{
-				setState(9);
-				moduleExpr();
+				setState(17);
+				modElt();
 				}
 				}
-				setState(14);
+				setState(22);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(15);
+			setState(23);
 			match(ENDFM);
 			}
 		}
@@ -162,21 +242,21 @@ public class MaudeParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class ModuleExprContext extends ParserRuleContext {
-		public ModuleExprContext(ParserRuleContext parent, int invokingState) {
+	public static class ModEltContext extends ParserRuleContext {
+		public ModEltContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_moduleExpr; }
+		@Override public int getRuleIndex() { return RULE_modElt; }
 	 
-		public ModuleExprContext() { }
-		public void copyFrom(ModuleExprContext ctx) {
+		public ModEltContext() { }
+		public void copyFrom(ModEltContext ctx) {
 			super.copyFrom(ctx);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class ExtendingContext extends ModuleExprContext {
+	public static class ExtendingContext extends ModEltContext {
 		public TerminalNode EXTENDING() { return getToken(MaudeParser.EXTENDING, 0); }
-		public ExtendingContext(ModuleExprContext ctx) { copyFrom(ctx); }
+		public ExtendingContext(ModEltContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterExtending(this);
@@ -187,7 +267,7 @@ public class MaudeParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class SortsContext extends ModuleExprContext {
+	public static class SortsContext extends ModEltContext {
 		public TerminalNode SORTS() { return getToken(MaudeParser.SORTS, 0); }
 		public TerminalNode DOT() { return getToken(MaudeParser.DOT, 0); }
 		public List<SortContext> sort() {
@@ -196,7 +276,7 @@ public class MaudeParser extends Parser {
 		public SortContext sort(int i) {
 			return getRuleContext(SortContext.class,i);
 		}
-		public SortsContext(ModuleExprContext ctx) { copyFrom(ctx); }
+		public SortsContext(ModEltContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterSorts(this);
@@ -207,9 +287,9 @@ public class MaudeParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class GeneratedByContext extends ModuleExprContext {
+	public static class GeneratedByContext extends ModEltContext {
 		public TerminalNode GENERATED_BY() { return getToken(MaudeParser.GENERATED_BY, 0); }
-		public GeneratedByContext(ModuleExprContext ctx) { copyFrom(ctx); }
+		public GeneratedByContext(ModEltContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterGeneratedBy(this);
@@ -220,9 +300,9 @@ public class MaudeParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class ProtectingContext extends ModuleExprContext {
+	public static class ProtectingContext extends ModEltContext {
 		public TerminalNode PROTECTING() { return getToken(MaudeParser.PROTECTING, 0); }
-		public ProtectingContext(ModuleExprContext ctx) { copyFrom(ctx); }
+		public ProtectingContext(ModEltContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterProtecting(this);
@@ -233,9 +313,9 @@ public class MaudeParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class IncludingContext extends ModuleExprContext {
+	public static class IncludingContext extends ModEltContext {
 		public TerminalNode INCLUDING() { return getToken(MaudeParser.INCLUDING, 0); }
-		public IncludingContext(ModuleExprContext ctx) { copyFrom(ctx); }
+		public IncludingContext(ModEltContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof MaudeParserListener) ((MaudeParserListener)listener).enterIncluding(this);
@@ -246,19 +326,19 @@ public class MaudeParser extends Parser {
 		}
 	}
 
-	public final ModuleExprContext moduleExpr() throws RecognitionException {
-		ModuleExprContext _localctx = new ModuleExprContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_moduleExpr);
+	public final ModEltContext modElt() throws RecognitionException {
+		ModEltContext _localctx = new ModEltContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_modElt);
 		int _la;
 		try {
-			setState(29);
+			setState(37);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case PROTECTING:
 				_localctx = new ProtectingContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(17);
+				setState(25);
 				match(PROTECTING);
 				}
 				break;
@@ -266,7 +346,7 @@ public class MaudeParser extends Parser {
 				_localctx = new ExtendingContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(18);
+				setState(26);
 				match(EXTENDING);
 				}
 				break;
@@ -274,7 +354,7 @@ public class MaudeParser extends Parser {
 				_localctx = new GeneratedByContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(19);
+				setState(27);
 				match(GENERATED_BY);
 				}
 				break;
@@ -282,7 +362,7 @@ public class MaudeParser extends Parser {
 				_localctx = new IncludingContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(20);
+				setState(28);
 				match(INCLUDING);
 				}
 				break;
@@ -290,23 +370,23 @@ public class MaudeParser extends Parser {
 				_localctx = new SortsContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(21);
+				setState(29);
 				match(SORTS);
-				setState(23); 
+				setState(31); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
 					{
-					setState(22);
+					setState(30);
 					sort(0);
 					}
 					}
-					setState(25); 
+					setState(33); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==IDENTIFIER );
-				setState(27);
+				setState(35);
 				match(DOT);
 				}
 				break;
@@ -363,19 +443,19 @@ public class MaudeParser extends Parser {
 		int _parentState = getState();
 		SortContext _localctx = new SortContext(_ctx, _parentState);
 		SortContext _prevctx = _localctx;
-		int _startState = 4;
-		enterRecursionRule(_localctx, 4, RULE_sort, _p);
+		int _startState = 8;
+		enterRecursionRule(_localctx, 8, RULE_sort, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(32);
+			setState(40);
 			match(IDENTIFIER);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(48);
+			setState(56);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
@@ -386,34 +466,34 @@ public class MaudeParser extends Parser {
 					{
 					_localctx = new SortContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_sort);
-					setState(34);
+					setState(42);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-					setState(35);
+					setState(43);
 					match(LCB);
-					setState(36);
+					setState(44);
 					sort(0);
-					setState(41);
+					setState(49);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 					while (_la==COMMA) {
 						{
 						{
-						setState(37);
+						setState(45);
 						match(COMMA);
-						setState(38);
+						setState(46);
 						sort(0);
 						}
 						}
-						setState(43);
+						setState(51);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
 					}
-					setState(44);
+					setState(52);
 					match(RCB);
 					}
 					} 
 				}
-				setState(50);
+				setState(58);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			}
@@ -432,7 +512,7 @@ public class MaudeParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 2:
+		case 4:
 			return sort_sempred((SortContext)_localctx, predIndex);
 		}
 		return true;
@@ -446,40 +526,43 @@ public class MaudeParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u00104\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0005"+
-		"\u0000\u000b\b\u0000\n\u0000\f\u0000\u000e\t\u0000\u0001\u0000\u0001\u0000"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0004\u0001\u0018\b\u0001\u000b\u0001\f\u0001\u0019\u0001\u0001\u0001"+
-		"\u0001\u0003\u0001\u001e\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0005\u0002(\b"+
-		"\u0002\n\u0002\f\u0002+\t\u0002\u0001\u0002\u0001\u0002\u0005\u0002/\b"+
-		"\u0002\n\u0002\f\u00022\t\u0002\u0001\u0002\u0000\u0001\u0004\u0003\u0000"+
-		"\u0002\u0004\u0000\u00008\u0000\u0006\u0001\u0000\u0000\u0000\u0002\u001d"+
-		"\u0001\u0000\u0000\u0000\u0004\u001f\u0001\u0000\u0000\u0000\u0006\u0007"+
-		"\u0005\u0001\u0000\u0000\u0007\b\u0005\n\u0000\u0000\b\f\u0005\u0002\u0000"+
-		"\u0000\t\u000b\u0003\u0002\u0001\u0000\n\t\u0001\u0000\u0000\u0000\u000b"+
-		"\u000e\u0001\u0000\u0000\u0000\f\n\u0001\u0000\u0000\u0000\f\r\u0001\u0000"+
-		"\u0000\u0000\r\u000f\u0001\u0000\u0000\u0000\u000e\f\u0001\u0000\u0000"+
-		"\u0000\u000f\u0010\u0005\u0003\u0000\u0000\u0010\u0001\u0001\u0000\u0000"+
-		"\u0000\u0011\u001e\u0005\u0004\u0000\u0000\u0012\u001e\u0005\u0005\u0000"+
-		"\u0000\u0013\u001e\u0005\u0006\u0000\u0000\u0014\u001e\u0005\u0007\u0000"+
-		"\u0000\u0015\u0017\u0005\b\u0000\u0000\u0016\u0018\u0003\u0004\u0002\u0000"+
-		"\u0017\u0016\u0001\u0000\u0000\u0000\u0018\u0019\u0001\u0000\u0000\u0000"+
-		"\u0019\u0017\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000\u0000\u0000"+
-		"\u001a\u001b\u0001\u0000\u0000\u0000\u001b\u001c\u0005\u000f\u0000\u0000"+
-		"\u001c\u001e\u0001\u0000\u0000\u0000\u001d\u0011\u0001\u0000\u0000\u0000"+
-		"\u001d\u0012\u0001\u0000\u0000\u0000\u001d\u0013\u0001\u0000\u0000\u0000"+
-		"\u001d\u0014\u0001\u0000\u0000\u0000\u001d\u0015\u0001\u0000\u0000\u0000"+
-		"\u001e\u0003\u0001\u0000\u0000\u0000\u001f \u0006\u0002\uffff\uffff\u0000"+
-		" !\u0005\n\u0000\u0000!0\u0001\u0000\u0000\u0000\"#\n\u0001\u0000\u0000"+
-		"#$\u0005\f\u0000\u0000$)\u0003\u0004\u0002\u0000%&\u0005\u000e\u0000\u0000"+
-		"&(\u0003\u0004\u0002\u0000\'%\u0001\u0000\u0000\u0000(+\u0001\u0000\u0000"+
-		"\u0000)\'\u0001\u0000\u0000\u0000)*\u0001\u0000\u0000\u0000*,\u0001\u0000"+
-		"\u0000\u0000+)\u0001\u0000\u0000\u0000,-\u0005\r\u0000\u0000-/\u0001\u0000"+
-		"\u0000\u0000.\"\u0001\u0000\u0000\u0000/2\u0001\u0000\u0000\u00000.\u0001"+
-		"\u0000\u0000\u000001\u0001\u0000\u0000\u00001\u0005\u0001\u0000\u0000"+
-		"\u000020\u0001\u0000\u0000\u0000\u0005\f\u0019\u001d)0";
+		"\u0004\u0001\u0010<\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0001"+
+		"\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0005\u0002\u0013\b\u0002\n\u0002\f\u0002\u0016\t\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
+		"\u0001\u0003\u0001\u0003\u0004\u0003 \b\u0003\u000b\u0003\f\u0003!\u0001"+
+		"\u0003\u0001\u0003\u0003\u0003&\b\u0003\u0001\u0004\u0001\u0004\u0001"+
+		"\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0005"+
+		"\u00040\b\u0004\n\u0004\f\u00043\t\u0004\u0001\u0004\u0001\u0004\u0005"+
+		"\u00047\b\u0004\n\u0004\f\u0004:\t\u0004\u0001\u0004\u0000\u0001\b\u0005"+
+		"\u0000\u0002\u0004\u0006\b\u0000\u0000>\u0000\n\u0001\u0000\u0000\u0000"+
+		"\u0002\f\u0001\u0000\u0000\u0000\u0004\u000e\u0001\u0000\u0000\u0000\u0006"+
+		"%\u0001\u0000\u0000\u0000\b\'\u0001\u0000\u0000\u0000\n\u000b\u0003\u0002"+
+		"\u0001\u0000\u000b\u0001\u0001\u0000\u0000\u0000\f\r\u0003\u0004\u0002"+
+		"\u0000\r\u0003\u0001\u0000\u0000\u0000\u000e\u000f\u0005\u0001\u0000\u0000"+
+		"\u000f\u0010\u0005\n\u0000\u0000\u0010\u0014\u0005\u0002\u0000\u0000\u0011"+
+		"\u0013\u0003\u0006\u0003\u0000\u0012\u0011\u0001\u0000\u0000\u0000\u0013"+
+		"\u0016\u0001\u0000\u0000\u0000\u0014\u0012\u0001\u0000\u0000\u0000\u0014"+
+		"\u0015\u0001\u0000\u0000\u0000\u0015\u0017\u0001\u0000\u0000\u0000\u0016"+
+		"\u0014\u0001\u0000\u0000\u0000\u0017\u0018\u0005\u0003\u0000\u0000\u0018"+
+		"\u0005\u0001\u0000\u0000\u0000\u0019&\u0005\u0004\u0000\u0000\u001a&\u0005"+
+		"\u0005\u0000\u0000\u001b&\u0005\u0006\u0000\u0000\u001c&\u0005\u0007\u0000"+
+		"\u0000\u001d\u001f\u0005\b\u0000\u0000\u001e \u0003\b\u0004\u0000\u001f"+
+		"\u001e\u0001\u0000\u0000\u0000 !\u0001\u0000\u0000\u0000!\u001f\u0001"+
+		"\u0000\u0000\u0000!\"\u0001\u0000\u0000\u0000\"#\u0001\u0000\u0000\u0000"+
+		"#$\u0005\u000f\u0000\u0000$&\u0001\u0000\u0000\u0000%\u0019\u0001\u0000"+
+		"\u0000\u0000%\u001a\u0001\u0000\u0000\u0000%\u001b\u0001\u0000\u0000\u0000"+
+		"%\u001c\u0001\u0000\u0000\u0000%\u001d\u0001\u0000\u0000\u0000&\u0007"+
+		"\u0001\u0000\u0000\u0000\'(\u0006\u0004\uffff\uffff\u0000()\u0005\n\u0000"+
+		"\u0000)8\u0001\u0000\u0000\u0000*+\n\u0001\u0000\u0000+,\u0005\f\u0000"+
+		"\u0000,1\u0003\b\u0004\u0000-.\u0005\u000e\u0000\u0000.0\u0003\b\u0004"+
+		"\u0000/-\u0001\u0000\u0000\u000003\u0001\u0000\u0000\u00001/\u0001\u0000"+
+		"\u0000\u000012\u0001\u0000\u0000\u000024\u0001\u0000\u0000\u000031\u0001"+
+		"\u0000\u0000\u000045\u0005\r\u0000\u000057\u0001\u0000\u0000\u00006*\u0001"+
+		"\u0000\u0000\u00007:\u0001\u0000\u0000\u000086\u0001\u0000\u0000\u0000"+
+		"89\u0001\u0000\u0000\u00009\t\u0001\u0000\u0000\u0000:8\u0001\u0000\u0000"+
+		"\u0000\u0005\u0014!%18";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

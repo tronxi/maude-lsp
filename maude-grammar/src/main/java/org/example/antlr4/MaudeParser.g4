@@ -2,6 +2,10 @@ parser grammar MaudeParser;
 
 options { tokenVocab=MaudeLexer; }
 
+maudeTop: module ;
+
+module: fmod;
+
 fmod: FMOD IDENTIFIER IS modElt* ENDFM;
 
 modElt: PROTECTING #Protecting |

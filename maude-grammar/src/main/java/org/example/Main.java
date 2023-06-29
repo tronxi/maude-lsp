@@ -16,7 +16,7 @@ public class Main {
     MaudeLexer lexer = new MaudeLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     MaudeParser parser = new MaudeParser(tokens);
-    ParseTree tree = parser.fmod();
+    ParseTree tree = parser.maudeTop();
     ParseTreeWalker walker = new ParseTreeWalker();
     MaudeListener maudeListener = new MaudeListener(parser);
     walker.walk(maudeListener, tree);
