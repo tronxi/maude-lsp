@@ -9,6 +9,7 @@ public class Fmod {
   private List<MaudeToken> extending;
   private List<MaudeToken> generatedBy;
   private List<MaudeToken> sorts;
+  private List<MaudeToken> subsorts;
 
   @Override
   public String toString() {
@@ -19,6 +20,7 @@ public class Fmod {
         "\n protecting=" + protecting +
         "\n generated-by=" + generatedBy +
         "\n sorts=" + sorts +
+        "\n subsorts=" + subsorts +
         "\n}";
   }
 
@@ -68,5 +70,13 @@ public class Fmod {
 
   public void setSorts(List<MaudeToken> sorts) {
     this.sorts = sorts;
+  }
+
+  public List<MaudeToken> getSubsorts() {
+    return subsorts;
+  }
+
+  public void setSubsorts(List<MaudeToken> subsorts) {
+    this.subsorts = subsorts;
   }
 }

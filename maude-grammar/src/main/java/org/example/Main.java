@@ -41,6 +41,8 @@ fmod BOARD is
   protecting Mod .
   extending Ext .
   sorts Nat .
+  subsorts Nat < Otro < P{B} .
+  subsorts A < B .
   endfm
 """;
   }

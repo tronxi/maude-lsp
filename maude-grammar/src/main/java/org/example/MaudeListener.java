@@ -3,6 +3,8 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.example.antlr4generated.MaudeParser;
 import org.example.antlr4generated.MaudeParser.ExtendingContext;
@@ -12,6 +14,7 @@ import org.example.antlr4generated.MaudeParser.IncludingContext;
 import org.example.antlr4generated.MaudeParser.ProtectingContext;
 import org.example.antlr4generated.MaudeParser.SortContext;
 import org.example.antlr4generated.MaudeParser.SortsContext;
+import org.example.antlr4generated.MaudeParser.SubsortContext;
 import org.example.antlr4generated.MaudeParserBaseListener;
 import org.example.maude.Fmod;
 import org.example.maude.MaudePosition;
@@ -28,6 +31,7 @@ public class MaudeListener extends MaudeParserBaseListener {
   List<MaudeToken> extendingList = new ArrayList<>();
   List<MaudeToken> generetatedByList = new ArrayList<>();
   List<MaudeToken> sorts = new ArrayList<>();
+  List<MaudeToken> subsorts = new ArrayList<>();
 
   private final MaudeParser maudeParser;
 
@@ -45,6 +49,7 @@ public class MaudeListener extends MaudeParserBaseListener {
     fmod.setExtending(extendingList);
     fmod.setGeneratedBy(generetatedByList);
     fmod.setSorts(sorts);
+    fmod.setSubsorts(subsorts);
     maudeTop.addFmod(fmod);
     fmod = new Fmod();
     includingList = new ArrayList<>();
@@ -52,6 +57,7 @@ public class MaudeListener extends MaudeParserBaseListener {
     extendingList = new ArrayList<>();
     generetatedByList = new ArrayList<>();
     sorts = new ArrayList<>();
+    subsorts = new ArrayList<>();
   }
 
 
@@ -91,6 +97,24 @@ public class MaudeListener extends MaudeParserBaseListener {
     }
   }
 
+  @Override
+  public void exitSubsort(SubsortContext ctx) {
+    try {
+      ParserRuleContext firstElement = (ParserRuleContext) ctx.getChild(1);
+      int firstLine = firstElement.getStart().getLine();
+      int firstColumn = firstElement.getStart().getCharPositionInLine();
+      MaudePosition startPosition = new MaudePosition(firstLine, firstColumn);
+
+      ParserRuleContext lastElement = (ParserRuleContext) ctx.getChild(ctx.getChildCount() - 2);
+      int lastLine = lastElement.getStart().getLine();
+      int lastColumn = lastElement.getStart().getCharPositionInLine();
+      MaudePosition endPosition = new MaudePosition(lastLine, lastColumn + lastElement.getText().length());
+      MaudeToken subsort = generateFromContext(ctx, 8, 1, startPosition, endPosition);
+      subsorts.add(subsort);
+    }catch (Exception ignored) {
+
+    }
+  }
 
   public MaudeTop getMaudeTop() {
     return maudeTop;
@@ -121,5 +145,10 @@ public class MaudeListener extends MaudeParserBaseListener {
     MaudePosition startPosition = new MaudePosition(startLine, startColumn);
     MaudePosition endPosition = new MaudePosition(startLine, startColumn + token.length());
     return new MaudeToken(token, new MaudeRange(startPosition, endPosition));
+  }
+  private MaudeToken generateFromContext(ParserRuleContext ctx, int startOffset, int endOffset, MaudePosition startPosition, MaudePosition endPosition) {
+    String token = ctx.getText();
+    String tokenWithOffset = token.substring(startOffset, token.length() - endOffset);
+    return new MaudeToken(tokenWithOffset, new MaudeRange(startPosition, endPosition));
   }
 }

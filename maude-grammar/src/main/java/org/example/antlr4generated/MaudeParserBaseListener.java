@@ -112,6 +112,18 @@ public class MaudeParserBaseListener implements MaudeParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSubsort(MaudeParser.SubsortContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubsort(MaudeParser.SubsortContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSort(MaudeParser.SortContext ctx) { }
 	/**
 	 * {@inheritDoc}

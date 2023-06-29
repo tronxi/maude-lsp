@@ -21,7 +21,6 @@ LT: '<' ;
 LCB: '{' ;
 RCB: '}' ;
 COMMA : ',' ;
-
 DOT: '.';
 
 fragment BACKQUOTE: '`';
