@@ -24,14 +24,13 @@ import org.example.maude.MaudeTop;
 
 public class MaudeListener extends MaudeParserBaseListener {
 
-  private MaudeTop maudeTop = new MaudeTop();
-  private Fmod fmod;
-  List<MaudeToken> includingList = new ArrayList<>();
-  List<MaudeToken> protectingList = new ArrayList<>();
-  List<MaudeToken> extendingList = new ArrayList<>();
-  List<MaudeToken> generetatedByList = new ArrayList<>();
-  List<MaudeToken> sorts = new ArrayList<>();
-  List<MaudeToken> subsorts = new ArrayList<>();
+  private final MaudeTop maudeTop = new MaudeTop();
+  private List<MaudeToken> includingList = new ArrayList<>();
+  private List<MaudeToken> protectingList = new ArrayList<>();
+  private List<MaudeToken> extendingList = new ArrayList<>();
+  private List<MaudeToken> generetatedByList = new ArrayList<>();
+  private List<MaudeToken> sorts = new ArrayList<>();
+  private List<MaudeToken> subsorts = new ArrayList<>();
 
   private final MaudeParser maudeParser;
 
@@ -41,7 +40,7 @@ public class MaudeListener extends MaudeParserBaseListener {
 
   @Override
   public void exitFmod(FmodContext ctx) {
-    fmod = new Fmod();
+    Fmod fmod = new Fmod();
     MaudeToken name = generateFromTerminalNode(ctx.IDENTIFIER());
     fmod.setName(name);
     fmod.setProtecting(protectingList);
@@ -51,7 +50,6 @@ public class MaudeListener extends MaudeParserBaseListener {
     fmod.setSorts(sorts);
     fmod.setSubsorts(subsorts);
     maudeTop.addFmod(fmod);
-    fmod = new Fmod();
     includingList = new ArrayList<>();
     protectingList = new ArrayList<>();
     extendingList = new ArrayList<>();
