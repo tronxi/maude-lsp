@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.example.antlr4generated.MaudeLexer;
 import org.example.antlr4generated.MaudeParser;
+import org.example.maude.Fmod;
 
 public class Main {
 
@@ -17,25 +18,31 @@ public class Main {
     MaudeParser parser = new MaudeParser(tokens);
     ParseTree tree = parser.fmod();
     ParseTreeWalker walker = new ParseTreeWalker();
-    walker.walk(new MaudeListener(parser), tree);
+    MaudeListener maudeListener = new MaudeListener(parser);
+    walker.walk(maudeListener, tree);
+//    System.out.println(tree.toStringTree(parser));
+    Fmod fmod = maudeListener.getFmod();
+    System.out.println(fmod);
   }
 
   private static String getModule() {
-    return """
-        fmod BOARD is
-            protecting PIECE .
-            extending EXTENDING_MODULE_NAME .
-            generated-by GENERATED_BY_MODULE_NAME .
-            sort Nat .
-            including INCLUDING_MODULE_NAME .
-            sort Zero .
-            sort Hola{ Hola, Adios} .
-            sort Hola Como Estas .
-            sorts Hola Como Estas .
-            sorts Hola{Hol} Como Estas .
-            subsorts Sort1 Sort2 < Sort3 Sort4 < Sort5 Sort6 .
+    return
+"""        
+fmod BOARD is
+  protecting PIECE .
+  extending EXTENDING_MODULE_NAME .
+  generated-by GENERATED_BY_MODULE_NAME .
+  sort Nat .
+  including INCLUDING_MODULE_NAME .
+  including INCLUDING .
+  sort Zero .
+  sort Hola{ Hola, Adios} .
+  sort Hola Como Estas .
+  sorts Hola Como Estas .
+  sorts Hola{Hol} Como Estas .
+  subsorts Sort1 Sort2 < Sort3 Sort4 < Sort5 Sort6 .
                 
-        endfm
-        """;
+  endfm
+""";
   }
 }
